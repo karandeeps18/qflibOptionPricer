@@ -1,6 +1,6 @@
 # set location of python headers and libraries
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")           # VC++ on Windows
-    set(PYTHON_HOME $ENV{LOCALAPPDATA}/Programs/Miniconda3/envs/qfgb)
+    set(PYTHON_HOME "C:/Users/karan/anaconda3/envs/qfgb")
     set(PYTHON_INCLUDE_DIRECTORY ${PYTHON_HOME}/include)
     set(NUMPY_INCLUDE_DIRECTORY ${PYTHON_HOME}/Lib/site-packages/numpy/core/include)
     set(PYTHON_LIBRARY_PATH ${PYTHON_HOME}/libs/python312.lib)

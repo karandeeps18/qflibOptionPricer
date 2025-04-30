@@ -159,3 +159,42 @@ PY_BEGIN;
   return asPyScalar(price);
 PY_END;
 }
+
+PyObject*  pyQfQEuroBS(PyObject* pyDummy, PyObject* pyArgs)
+{
+PY_BEGIN;
+
+  PyObject* pyPayoffType(NULL);
+  PyObject* pySpot(NULL);
+  PyObject* pyStrike(NULL);
+  PyObject* pyTimeToExp(NULL);
+  PyObject* pyDiscRate(NULL);
+  PyObject* pyGrowthRate(NULL);
+  PyObject* pyDivYield(NULL);
+  PyObject* pyAssetVol(NULL);
+  PyObject* pyFxVol(NULL);
+  PyObject* pyCorrel(NULL);
+
+  if (!PyArg_ParseTuple(pyArgs, "OOOOOOOOOO", &pyPayoffType, &pySpot, &pyStrike, &pyTimeToExp,
+    &pyDiscRate, &pyGrowthRate, &pyDivYield, &pyAssetVol, &pyFxVol, &pyCorrel))
+    return NULL;
+
+  int payoffType = asInt(pyPayoffType);
+  double spot = asDouble(pySpot);
+  double strike = asDouble(pyStrike);
+  double timeToExp = asDouble(pyTimeToExp);
+  double discRate = asDouble(pyDiscRate);
+  double growthRate = asDouble(pyGrowthRate);
+  double divYield = asDouble(pyDivYield);
+  double assetVol = asDouble(pyAssetVol);
+  double fxVol = asDouble(pyFxVol);
+  double correl = asDouble(pyCorrel);
+
+  qf::Vector greeks = qf::quantoEuropeanOptionBS(payoffType, spot, strike, timeToExp,
+                                                 discRate, growthRate, divYield,
+                                                 assetVol, fxVol, correl);
+
+  return asNumpy(greeks);
+
+PY_END;
+}

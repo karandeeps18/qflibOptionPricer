@@ -51,6 +51,7 @@ static PyMethodDef PyQflibMethods[] =
   { "qFwdPrice", pyQfQFwdPrice, METH_VARARGS, "the quanto forward price of an asset." },
   { "digiBS", pyQfDigiBS, METH_VARARGS, "price and Greeks of a digital option in the Black-Scholes model." },
   { "euroBS", pyQfEuroBS, METH_VARARGS, "price and Greeks of a European option in the Black-Scholes model." },
+  { "qEuroBS", pyQfQEuroBS, METH_VARARGS, "price and Greeks of a European quanto option in the Black-Scholes model."  },
   { "koFwd", pyQfKOFwd, METH_VARARGS, "price of a knockout forward contract." },
 // functions 2
   { "mktList", pyQfMktList, METH_VARARGS, "lists all market objects." },

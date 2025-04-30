@@ -233,6 +233,7 @@ Vector cdsPV(SPtrYieldCurve sprfyc, double credSprd, double cdsRate,
   return ret;
 }
 
+/** Price and Greeks of European Quanto Option in the Black-Scholes model */
 Vector quantoEuropeanOptionBS(int payoffType, double spot, double strike, double timeToExp,
                           double discRate, double growthRate, double divYield, double assetVol, double fxVol,
                           double correl)
@@ -277,7 +278,7 @@ Vector quantoEuropeanOptionBS(int payoffType, double spot, double strike, double
   vec[2] = gamma;
   vec[3] = theta;
   vec[4] = vega;
-  
+
   return vec;
 }
 
