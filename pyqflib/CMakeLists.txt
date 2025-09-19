@@ -4,11 +4,13 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")           # VC++ on Windows
     set(PYTHON_INCLUDE_DIRECTORY ${PYTHON_HOME}/include)
     set(NUMPY_INCLUDE_DIRECTORY ${PYTHON_HOME}/Lib/site-packages/numpy/core/include)
     set(PYTHON_LIBRARY_PATH ${PYTHON_HOME}/libs/python312.lib)
+    set(PYBIND11_INCLUDE_DIRECTORY ${PYTHON_HOME}/Lib/site-packages/pybind11/include)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")       # GCC on Linux
     set(PYTHON_HOME $ENV{HOME}/miniconda3/envs/qfgb)
     set(PYTHON_INCLUDE_DIRECTORY ${PYTHON_HOME}/include/python3.12)
     set(NUMPY_INCLUDE_DIRECTORY ${PYTHON_HOME}/lib/python3.12/site-packages/numpy/core/include)
     set(PYTHON_LIBRARY_PATH ${PYTHON_HOME}/lib/libpython3.12.so)
+    set(PYBIND11_INCLUDE_DIRECTORY ${PYTHON_HOME}/lib/python3.12/site-packages/pybind11/include)
 else()
     message(FATAL_ERROR "Unsupported C++ compiler")
 
@@ -26,6 +28,7 @@ target_include_directories(pyqflib PRIVATE
     .. 
     ${PYTHON_INCLUDE_DIRECTORY} 
     ${NUMPY_INCLUDE_DIRECTORY}
+    ${PYBIND11_INCLUDE_DIRECTORY}
     ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/include
 )
 
@@ -67,3 +70,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")       # GCC on Linux
         # libquadmath.so.0
     )
 endif()
+
+
+
+
+
+
+
