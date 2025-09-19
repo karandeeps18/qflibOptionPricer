@@ -28,6 +28,10 @@ Vector digitalOptionBS(int payoffType, double spot, double strike, double timeTo
 Vector europeanOptionBS(int payoffType, double spot, double strike, double timeToExp, 
                         double intRate, double divYield, double volatility);
 
+/** Price and spot Greeks (price, delta, gamma, vega) of an FX option under the Garman-Kohlhagen model*/
+Vector fxOptionGarmanKohlhagen(int payoffType, double spot, double strike, double timeToExp,
+                              double domesticRate, double foreignRate, double volatility);
+
 /** Price of a single point knock-out forward contract*/
 double knockoutFwd(double spot, double strike, double kolevel, double timeToExp,
                    double timeToKO, double intRate, double divYield, double volatility);
@@ -48,3 +52,4 @@ Vector quantoEuropeanOptionBS(int payoffType, double spot, double strike, double
 END_NAMESPACE(qf)
 
 #endif // QF_SIMPLEPRICERS_HPP
+

@@ -282,4 +282,24 @@ Vector quantoEuropeanOptionBS(int payoffType, double spot, double strike, double
   return vec;
 }
 
+/** Price and spot Greeks (price, delta, gamma, vega) of an FX option under the Garman-Kohlhagen model*/
+Vector fxOptionGarmanKohlhagen(int payoffType, double spot, double strike, double timeToExp,
+                              double domesticRate, double foreignRate, double volatility)
+{
+  QF_ASSERT(payoffType == 1 || payoffType == -1, "payoffType must be 1 or -1");
+  QF_ASSERT(strike >= 0.0, "strike must be non-negative");
+  QF_ASSERT(timeToExp >= 0.0, "time to expiration must be non-negative");
+  QF_ASSERT(volatility >= 0.0, "volatility must be non-negative");
+
+  Vector base = europeanOptionBS(payoffType, spot, strike, timeToExp, domesticRate, foreignRate, volatility);
+
+  Vector vec(4);
+  vec[0] = base[0];
+  vec[1] = base[1];
+  vec[2] = base[2];
+  vec[3] = base[4];
+
+  return vec;
+}
 END_NAMESPACE(qf)
+

@@ -13,5 +13,7 @@
         "xstring": "cpp",
         "xutility": "cpp"
     },
-    "terminal.integrated.automationProfile.windows": {}
+    "terminal.integrated.automationProfile.windows": {},
+    "workbench.commandPalette.experimental.suggestCommands": true,
+    "window.autoDetectColorScheme": true
 }
