@@ -69,3 +69,34 @@ P = e^{-r_d T} K N(-d2) - e^{-r_f T} S N(-d1)
 
 cmake -S . -B build -G Ninja
 cmake --build build
+
+
+## 3. Unit Test
+conda activate qfgb
+pytest pyqflib/tests/test_fx_vanilla.py
+
+
+## 4. Python Usage
+from qflib.qflib import fx_vanilla_price
+
+result = fx_vanilla_price(
+    spot=1.12,
+    strike=1.10,
+    timetoexp=0.75,
+    domestic_rate=0.03,
+    foreign_rate=0.01,
+    volatility=0.18,
+    option_type="call",  # or "put"
+)
+
+print(result)
+# {'price': ..., 'delta': ..., 'gamma': ..., 'vega': ...}
+
+## 5. Implementation Notes
+
+- Domestic rate = discounting curve
+- Foreign rate = continuous dividend yield
+- Greeks are spot-based (domestic currency)
+- Numerical stability: relies on europeanOptionBS guards
+- Tests use tolerance 1e-9 to flag regressions
+
