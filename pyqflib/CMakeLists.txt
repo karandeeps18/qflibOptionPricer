@@ -32,6 +32,26 @@ target_include_directories(pyqflib PRIVATE
     ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/include
 )
 
+set(pyqflib_fx_SOURCES
+    fx_module.cpp 
+)
+
+add_library(pyqflib_fx SHARED ${pyqflib_fx_SOURCES})
+
+add_dependencies(pyqflib_fx qflib)
+
+target_include_directories(pyqflib_fx PRIVATE
+    .. 
+    ${PYTHON_INCLUDE_DIRECTORY} 
+    ${NUMPY_INCLUDE_DIRECTORY}
+    ${PYBIND11_INCLUDE_DIRECTORY}
+    ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/include
+)
+
+set_target_properties(pyqflib_fx PROPERTIES PREFIX "")
+set_target_properties(pyqflib_fx PROPERTIES DEBUG_POSTFIX "")
+set_target_properties(pyqflib_fx PROPERTIES COMPILE_DEFINITIONS "NPY_NO_DEPRECATED_API")
+
 # remove prefix from the DLL name
 set_target_properties(pyqflib PROPERTIES PREFIX "")
 set_target_properties(pyqflib PROPERTIES DEBUG_POSTFIX "")
@@ -51,7 +71,17 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")         # VC++ on Windows
         ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/blas${CMAKE_DEBUG_POSTFIX}.lib
         ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/f2c${CMAKE_DEBUG_POSTFIX}.lib
     )
-    target_link_options(pyqflib PRIVATE /MANIFEST:NO /INCREMENTAL:NO /DEBUG)    
+    target_link_options(pyqflib PRIVATE /MANIFEST:NO /INCREMENTAL:NO /DEBUG)
+    set_target_properties(pyqflib_fx PROPERTIES SUFFIX ".pyd")
+    set_target_properties(pyqflib_fx PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qflib)
+    target_link_libraries(pyqflib_fx PRIVATE
+        ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/qflib${CMAKE_DEBUG_POSTFIX}.lib 
+        ${PYTHON_LIBRARY_PATH}
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/lapack${CMAKE_DEBUG_POSTFIX}.lib
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/blas${CMAKE_DEBUG_POSTFIX}.lib
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/f2c${CMAKE_DEBUG_POSTFIX}.lib
+    )
+    target_link_options(pyqflib_fx PRIVATE /MANIFEST:NO /INCREMENTAL:NO /DEBUG)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")       # GCC on Linux
     # adjust output location
     set_target_properties(pyqflib PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qflib)
@@ -69,7 +99,18 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")       # GCC on Linux
         # libgfortran.so.4 
         # libquadmath.so.0
     )
+    set_target_properties(pyqflib_fx PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qflib)
+    target_link_libraries(pyqflib_fx PRIVATE 
+        ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libqflib${CMAKE_DEBUG_POSTFIX}.a 
+        ${PYTHON_LIBRARY_PATH}
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/liblapack${CMAKE_DEBUG_POSTFIX}.a  
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/libblas${CMAKE_DEBUG_POSTFIX}.a  
+        ${THIRDPARTY_DIRECTORY}/armadillo-${ARMA_VERSION}/lib/${PLATFORM_TARGET}/libf2c${CMAKE_DEBUG_POSTFIX}.a  
+    )
 endif()
+
+
+
 
 
 

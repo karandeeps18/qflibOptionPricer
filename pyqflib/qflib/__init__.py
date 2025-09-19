@@ -1,4 +1,8 @@
 import qflib.pyqflib
+import qflib.pyqflib_fx as pyqflib_fx
+
+pyqflib = qflib.pyqflib
+
 
 ###################
 # function group 0
@@ -427,6 +431,33 @@ def euroBS(payofftype, spot, strike, timetoexp, intrate, divyield, volatility):
         Array with Price, Delta, Gamma, Theta, Vega
     """
     return pyqflib.euroBS(payofftype, spot, strike, timetoexp, intrate, divyield, volatility)
+
+def fx_vanilla_price(spot, strike, timetoexp, domestic_rate, foreign_rate, volatility, option_type):
+    """Price and Greeks of an FX vanilla option under the Garman-Kohlhagen model.
+
+    Parameters
+    ----------
+    spot : double
+        FX spot rate quoted in domestic currency per unit of foreign currency
+    strike : double
+        option strike
+    timetoexp : double
+        time to maturity in years
+    domestic_rate : double
+        domestic (discounting) interest rate, p.a. and c.c.
+    foreign_rate : double
+        foreign (forward) interest rate, p.a. and c.c.
+    volatility : double
+        volatility of the FX rate
+    option_type : {'call', 'put'}
+        option payoff type
+
+    Returns
+    -------
+    dict
+        Dictionary with entries 'price', 'delta', 'gamma', 'vega'.
+    """
+    return pyqflib_fx.fx_vanilla_price(spot, strike, timetoexp, domestic_rate, foreign_rate, volatility, option_type)
 
 def koFwd(spot, strike, kolevel, timetoexp, timetoko, intrate, divyield, volatility):
     """Price of a knockout forward contract in the Black-Scholes model. 
