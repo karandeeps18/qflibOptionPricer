@@ -84,19 +84,9 @@ Here, \$N(\cdot)\$ and \$n(\cdot)\$ are the standard normal CDF and PDF.
 cmake -S . -B build -G Ninja
 cmake --build build
 ```
-
 ---
 
-## 3. Unit Test
-
-```bash
-conda activate qfgb
-pytest pyqflib/tests/test_fx_vanilla.py
-```
-
----
-
-## 4. Python Usage
+## 3. Python Usage
 
 ```python
 from qflib.qflib import fx_vanilla_price
@@ -117,7 +107,7 @@ print(result)
 
 ---
 
-## 5. Implementation Notes
+## 4. Implementation Notes
 
 * Domestic rate = discounting curve.
 * Foreign rate = continuous dividend yield.
