@@ -63,18 +63,6 @@ Here, \$N(\cdot)\$ and \$n(\cdot)\$ are the standard normal CDF and PDF.
 * Adds a wrapper so users call `qflib.fx_vanilla_price(...)`.
 * Returns a dict: `{price, delta, gamma, vega}`.
 
-### Unit Tests (`pyqflib/tests/test_fx_vanilla.py`)
-
-Confirms Python and C++ outputs match for calls and puts. Enforces:
-
-* Call–put parity:
-  $C - P = e^{-r_f T} S - e^{-r_d T} K$
-* Delta symmetry:
-  $\Delta_{\text{call}} - \Delta_{\text{put}} = e^{-r_f T}$
-* Gamma equality:
-  $\Gamma_{\text{call}} = \Gamma_{\text{put}}$
-* Vega equality:
-  $\mathcal{V}_{\text{call}} = \mathcal{V}_{\text{put}}$
 
 ### Plotly Dash Demo (`examples/Python/fx_vanilla_dash.py`)
 
