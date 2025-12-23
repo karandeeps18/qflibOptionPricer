@@ -40,7 +40,7 @@ $$
 \end{aligned}
 $$
 
-**Greeks (domestic numéraire):**
+**Greeks:**
 
 * Delta:
   $\Delta_{\text{call}} = e^{-r_f T} N(d_1), \qquad \Delta_{\text{put}} = -e^{-r_f T} N(-d_1)$
