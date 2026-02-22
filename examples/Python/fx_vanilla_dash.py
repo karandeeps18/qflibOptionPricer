@@ -1,5 +1,5 @@
 
-"""Mini Dash app for FX vanilla option pricing in qflib."""
+"""Mini Dash app for FX vanilla option pricing in qflib"""
 
 import numpy as np
 import dash
